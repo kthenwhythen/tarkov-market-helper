@@ -8,7 +8,7 @@ import pandas
 
 
 class MainFrame(wx.Frame):
-    def __init__(self):
+    def __init__(self, hash_lang, mode):
         style = (wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.SIMPLE_BORDER)
         super().__init__(None, title='Tarkov Market Helper', size=(92, 96), style=style)
         self.panel = wx.Panel(self)
@@ -16,9 +16,10 @@ class MainFrame(wx.Frame):
         self.SetBackgroundColour("black")
 
         self.previous_item_hash = ""
-        self.items = Items()
+        self.items = Items(hash_lang)
         self.item = pandas.DataFrame()
         self.item_state = "No item"
+        self.mode = mode
 
         self.min_price_text = wx.StaticText(self.panel, label="")
         self.slot_price_text = wx.StaticText(self.panel, label="")
@@ -27,10 +28,10 @@ class MainFrame(wx.Frame):
         self.init_ui()
 
         self.thread_is_on = False
-        self.set_update_frame(True)
+        self.set_update_frame()
 
-    def set_update_frame(self, thread_is_on):
-        self.thread_is_on = thread_is_on
+    def set_update_frame(self):
+        self.thread_is_on = not self.thread_is_on
         if self.thread_is_on:
             thread = threading.Thread(target=self.update_frame)
             thread.start()
@@ -44,12 +45,13 @@ class MainFrame(wx.Frame):
             wx.CallAfter(self.Move, wx.Point(pos_x + 10, pos_y + 20))
 
             # Auto scan (hitting performance)
+            # if self.mode == 'auto' and self.mode == 'turn':
             self.scan_item()
 
             # Update item info
             if not self.item.empty and self.item_state == "Item data found" \
-                    and self.previous_item_hash != self.item["Hash EN"].item():
-                self.previous_item_hash = self.item["Hash EN"].item()
+                    and self.previous_item_hash != self.item[f"Hash {self.items.hash_lang}"].item():
+                self.previous_item_hash = self.item[f"Hash {self.items.hash_lang}"].item()
                 self.update_ui()
                 # print(self.item["Hash EN"].item())
             elif self.item.empty and self.item_state == "Item data not found" \
@@ -106,15 +108,12 @@ class MainFrame(wx.Frame):
 
     def scan_item(self):
         self.item, self.item_state = self.items.find(Scan().item_hash)
-        if not self.item.empty and self.item_state == "Item data found":
+        if not self.item.empty and self.item_state == "Item data found" and self.thread_is_on:
             self.Show(True)
-        elif self.item.empty and self.item_state == "Item data not found":
+        elif self.item.empty and self.item_state == "Item data not found" and self.thread_is_on:
             self.Show(True)
         else:
             self.Show(False)
 
     def note_item(self):
-        print('\nF4')
-        print(self.item_state, end=': ')
-        print(Scan().item_hash)
-        print()
+        print(f'F4: {self.item_state}: {Scan().item_hash}')
