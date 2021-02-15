@@ -53,9 +53,8 @@ class MainFrame(wx.Frame):
         self.scan_item()
 
         # Update item info
-        if not self.item.empty and self.item_state == "Item data found" \
-                and self.previous_item_hash != self.item[f"Hash {self.items.hash_lang}"].item():
-            self.previous_item_hash = self.item[f"Hash {self.items.hash_lang}"].item()
+        if not self.item.empty and self.item_state == "Item data found" and self.previous_item_hash != self.item[f"Hash {self.items.hash_lang}"].iloc[0]:
+            self.previous_item_hash = self.item[f"Hash {self.items.hash_lang}"].iloc[0]
             self.update_ui()
             # print(self.item["Hash EN"].item())
         elif self.item.empty and self.item_state == "Item data not found" \
@@ -102,9 +101,9 @@ class MainFrame(wx.Frame):
 
     def update_ui(self):
         if self.item_state == "Item data found":
-            self.min_price_text.SetLabel(f"₽{self.item['Lowest price'].item()}")
-            self.slot_price_text.SetLabel(f"₽{self.item['Price per slot'].item()}")
-            self.trader_price_text.SetLabel(f"₽{self.item['Trader price'].item()}")
+            self.min_price_text.SetLabel(f"₽{self.item['Lowest price'].iloc[0]}")
+            self.slot_price_text.SetLabel(f"₽{self.item['Price per slot'].iloc[0]}")
+            self.trader_price_text.SetLabel(f"₽{self.item['Trader price'].iloc[0]}")
         elif self.item_state == "Item data not found":
             self.min_price_text.SetLabel("₽ N/A")
             self.slot_price_text.SetLabel("₽ N/A")
