@@ -6,17 +6,18 @@ from keyboard import add_hotkey
 LANG = 'RU'  # EN, RU
 MODE = 'turn'  # auto, turn, btn
 HOTKEY = 'F4'  # hotkey for 'turn' and 'btn' mode
-
+FPS = 60
 
 app = App()
-main_frame = MainFrame(LANG, MODE)
+main_frame = MainFrame(LANG, MODE, FPS)
 
 
 # Listener
 if MODE == 'turn':
-    add_hotkey('f', lambda: main_frame.set_update_frame())
+    add_hotkey(HOTKEY, lambda: main_frame.set_thread())
     # add_hotkey('g', lambda: main_frame.update_ui())
 elif MODE == 'btn':
+    add_hotkey(HOTKEY, lambda: main_frame.update_frame())
     pass
 
 # Debug hotkey

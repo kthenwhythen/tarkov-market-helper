@@ -8,7 +8,7 @@ import pandas
 
 
 class MainFrame(wx.Frame):
-    def __init__(self, hash_lang, mode):
+    def __init__(self, hash_lang, mode, fps):
         style = (wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.SIMPLE_BORDER)
         super().__init__(None, title='Tarkov Market Helper', size=(92, 96), style=style)
         self.panel = wx.Panel(self)
@@ -20,6 +20,7 @@ class MainFrame(wx.Frame):
         self.item = pandas.DataFrame()
         self.item_state = "No item"
         self.mode = mode
+        self.update_time = 1 / fps
 
         self.min_price_text = wx.StaticText(self.panel, label="")
         self.slot_price_text = wx.StaticText(self.panel, label="")
@@ -27,37 +28,40 @@ class MainFrame(wx.Frame):
 
         self.init_ui()
 
-        self.thread_is_on = False
-        self.set_update_frame()
+        self.thread_is_on = True
+        self.set_thread()
 
-    def set_update_frame(self):
+    def set_thread(self):
         self.thread_is_on = not self.thread_is_on
         if self.thread_is_on:
-            thread = threading.Thread(target=self.update_frame)
+            thread = threading.Thread(target=self.thread_frames)
             thread.start()
 
-    def update_frame(self):
+    def thread_frames(self):
         while self.thread_is_on:
-            time.sleep(0.01)
+            self.update_frame()
+            time.sleep(self.update_time)
+        self.Show(False)
 
-            # Update position
-            pos_x, pos_y = mouse.get_position()
-            wx.CallAfter(self.Move, wx.Point(pos_x + 10, pos_y + 20))
+    def update_frame(self):
+        # Update position
+        pos_x, pos_y = mouse.get_position()
+        wx.CallAfter(self.Move, wx.Point(pos_x + 10, pos_y + 20))
 
-            # Auto scan (hitting performance)
-            # if self.mode == 'auto' and self.mode == 'turn':
-            self.scan_item()
+        # Auto scan (hitting performance)
+        # if self.mode == 'auto' and self.mode == 'turn':
+        self.scan_item()
 
-            # Update item info
-            if not self.item.empty and self.item_state == "Item data found" \
-                    and self.previous_item_hash != self.item[f"Hash {self.items.hash_lang}"].item():
-                self.previous_item_hash = self.item[f"Hash {self.items.hash_lang}"].item()
-                self.update_ui()
-                # print(self.item["Hash EN"].item())
-            elif self.item.empty and self.item_state == "Item data not found" \
-                    and self.previous_item_hash != "":
-                self.previous_item_hash = ""
-                self.update_ui()
+        # Update item info
+        if not self.item.empty and self.item_state == "Item data found" \
+                and self.previous_item_hash != self.item[f"Hash {self.items.hash_lang}"].item():
+            self.previous_item_hash = self.item[f"Hash {self.items.hash_lang}"].item()
+            self.update_ui()
+            # print(self.item["Hash EN"].item())
+        elif self.item.empty and self.item_state == "Item data not found" \
+                and self.previous_item_hash != "":
+            self.previous_item_hash = ""
+            self.update_ui()
 
     def init_ui(self):
         hbox = wx.BoxSizer()
