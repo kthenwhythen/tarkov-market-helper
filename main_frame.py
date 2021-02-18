@@ -9,30 +9,45 @@ import pandas
 
 class MainFrame(wx.Frame):
     def __init__(self, hash_lang, mode, fps):
+        # Set style and options of Frame
         style = (wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.SIMPLE_BORDER)
-        super().__init__(None, title='Tarkov Market Helper', size=(92, 96), style=style)
+        super().__init__(None, title='Tarkov Market Helper', size=(92, 76), style=style)
+
+        # Style settings
         self.panel = wx.Panel(self)
         self.SetTransparent(220)
-        self.SetBackgroundColour("black")
+        self.SetBackgroundColour('black')
 
-        self.previous_item_hash = ""
+        # Items init
         self.items = Items(hash_lang)
+
+        # Something with item
+        self.previous_item_hash = ''
         self.item = pandas.DataFrame()
-        self.item_state = "No item"
+        self.item_state = 'No item'
+
+        # App settings
         self.mode = mode
         self.update_time = 1 / fps
 
-        self.min_price_text = wx.StaticText(self.panel, label="")
-        self.slot_price_text = wx.StaticText(self.panel, label="")
-        self.trader_price_text = wx.StaticText(self.panel, label="")
+        # Starting label placeholder
+        self.min_price_text = wx.StaticText(self.panel, label='')
+        self.slot_price_text = wx.StaticText(self.panel, label='')
+        self.trader_price_text = wx.StaticText(self.panel, label='')
 
+        # Init UI
         self.init_ui()
 
+        # Starting thread for positioning frame
         self.thread_is_on = True
-        self.set_thread()
+        self.turn_thread()
 
-    def set_thread(self):
+        # Show App
+        # self.Show(True)
+
+    def turn_thread(self):  # Changing thread bool and then start thread
         self.thread_is_on = not self.thread_is_on
+
         if self.thread_is_on:
             thread = threading.Thread(target=self.thread_frames)
             thread.start()
@@ -43,7 +58,7 @@ class MainFrame(wx.Frame):
             time.sleep(self.update_time)
         self.Show(False)
 
-    def update_frame(self):
+    def update_frame(self):  # Updating frame with position, item hash and UI
         # Update position
         pos_x, pos_y = mouse.get_position()
         wx.CallAfter(self.Move, wx.Point(pos_x + 10, pos_y + 20))
@@ -64,33 +79,32 @@ class MainFrame(wx.Frame):
 
     def init_ui(self):
         hbox = wx.BoxSizer()
-        fb = wx.FlexGridSizer(4, 2, 6, 6)
+        fb = wx.FlexGridSizer(3, 2, 6, 4)
 
-        min_price_title = wx.StaticText(self.panel, label="м")
+        min_price_title = wx.StaticText(self.panel, size=(12, 16), label='m', style=wx.ALIGN_CENTRE_HORIZONTAL)
         min_price_title.SetForegroundColour((160, 160, 170))
 
-        self.min_price_text = wx.StaticText(self.panel, label=f"₽ N/A")
+        self.min_price_text = wx.StaticText(self.panel, label=f'₽ N/A')
         self.min_price_text.SetForegroundColour((240, 226, 42))
 
-        slot_price_title = wx.StaticText(self.panel, label="с")
+        slot_price_title = wx.StaticText(self.panel, size=(12, 16), label='s', style=wx.ALIGN_CENTRE_HORIZONTAL)
         slot_price_title.SetForegroundColour((160, 160, 170))
 
-        self.slot_price_text = wx.StaticText(self.panel, label=f"₽ N/A")
+        self.slot_price_text = wx.StaticText(self.panel, label=f'₽ N/A')
         self.slot_price_text.SetForegroundColour((240, 226, 42))
 
-        trader_price_title = wx.StaticText(self.panel, label="т")
+        trader_price_title = wx.StaticText(self.panel, size=(12, 16), label='t', style=wx.ALIGN_CENTRE_HORIZONTAL)
         trader_price_title.SetForegroundColour((160, 160, 170))
 
-        self.trader_price_text = wx.StaticText(self.panel, label=f"₽ N/A")
+        self.trader_price_text = wx.StaticText(self.panel, label=f'₽ N/A')
         self.trader_price_text.SetForegroundColour((240, 226, 42))
 
-        help_title = wx.StaticText(self.panel, label="(F1)", style=wx.ALIGN_RIGHT)
-        help_title.SetForegroundColour((160, 160, 170))
+        # help_title = wx.StaticText(self.panel, label="(F1)", style=wx.ALIGN_RIGHT)
+        # help_title.SetForegroundColour((160, 160, 170))
 
         fb.AddMany([min_price_title, self.min_price_text,
                     slot_price_title, self.slot_price_text,
                     trader_price_title, self.trader_price_text,
-                    (0, 0), (help_title, wx.ID_ANY, wx.EXPAND)
                     ])
 
         fb.AddGrowableCol(1, 1)
