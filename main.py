@@ -14,7 +14,7 @@ TRAY_POSITION = 'right'  # left, center, right
 # Init app
 app = App()
 main_frame = MainFrame(LANG, FPS)
-tray_frame = TrayFrame(TRAY_POSITION)
+tray_frame = TrayFrame(TRAY_POSITION, HOTKEY)
 
 
 # Turn scan
