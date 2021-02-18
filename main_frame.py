@@ -8,7 +8,7 @@ import pandas
 
 
 class MainFrame(wx.Frame):
-    def __init__(self, hash_lang, mode, fps):
+    def __init__(self, hash_lang, fps):
         # Set style and options of Frame
         style = (wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.SIMPLE_BORDER)
         super().__init__(None, title='Tarkov Market Helper', size=(92, 76), style=style)
@@ -27,7 +27,6 @@ class MainFrame(wx.Frame):
         self.item_state = 'No item'
 
         # App settings
-        self.mode = mode
         self.update_time = 1 / fps
 
         # Starting label placeholder

@@ -2,7 +2,7 @@ import wx
 
 
 class TrayFrame(wx.Frame):
-    def __init__(self):
+    def __init__(self, position):
 
         # Set style and options of Frame
         style = (wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.BORDER_NONE)
@@ -12,7 +12,13 @@ class TrayFrame(wx.Frame):
         self.panel = wx.Panel(self)
         self.SetTransparent(220)
         self.SetBackgroundColour('black')
-        self.Move(wx.Point(1844, 0))
+
+        if position == 'left':
+            self.Move(wx.Point(0, 0))
+        elif position == 'center':
+            self.Move(wx.Point(922, 0))
+        elif position == 'right':
+            self.Move(wx.Point(1844, 0))
 
         self.active = False
         self.help = False
@@ -52,46 +58,46 @@ class TrayFrame(wx.Frame):
             self.hotkeys.SetForegroundColour((240, 226, 42))
             self.hotkeys.SetLabel('')
             self.SetSize(wx.Size(76, 100))
-            self.panel_help = wx.Panel(self)
+            # self.panel_help = wx.Panel(self)
         else:
             self.hotkeys.SetForegroundColour((160, 160, 170))
             self.hotkeys.SetLabel('')
             self.SetSize(wx.Size(76, 20))
         self.hotkeys.SetLabel('F1-help')
 
-    def init_help_ui(self):
-        hbox = wx.BoxSizer()
-        fb = wx.FlexGridSizer(3, 2, 6, 4)
-
-        min_price_title = wx.StaticText(self.panel, size=(12, 16), label='m', style=wx.ALIGN_CENTRE_HORIZONTAL)
-        min_price_title.SetForegroundColour((160, 160, 170))
-
-        self.min_price_text = wx.StaticText(self.panel, label=f'₽ N/A')
-        self.min_price_text.SetForegroundColour((240, 226, 42))
-
-        slot_price_title = wx.StaticText(self.panel, size=(12, 16), label='s', style=wx.ALIGN_CENTRE_HORIZONTAL)
-        slot_price_title.SetForegroundColour((160, 160, 170))
-
-        self.slot_price_text = wx.StaticText(self.panel, label=f'₽ N/A')
-        self.slot_price_text.SetForegroundColour((240, 226, 42))
-
-        trader_price_title = wx.StaticText(self.panel, size=(12, 16), label='t', style=wx.ALIGN_CENTRE_HORIZONTAL)
-        trader_price_title.SetForegroundColour((160, 160, 170))
-
-        self.trader_price_text = wx.StaticText(self.panel, label=f'₽ N/A')
-        self.trader_price_text.SetForegroundColour((240, 226, 42))
-
-        # help_title = wx.StaticText(self.panel, label="(F1)", style=wx.ALIGN_RIGHT)
-        # help_title.SetForegroundColour((160, 160, 170))
-
-        fb.AddMany([min_price_title, self.min_price_text,
-                    slot_price_title, self.slot_price_text,
-                    trader_price_title, self.trader_price_text,
-                    ])
-
-        fb.AddGrowableCol(1, 1)
-
-        hbox.Add(fb, proportion=1, flag=wx.EXPAND | wx.ALL, border=6)
-        self.panel.SetSizer(hbox)
-        self.Layout()
-        pass
+    # def init_help_ui(self):
+    #     hbox = wx.BoxSizer()
+    #     fb = wx.FlexGridSizer(3, 2, 6, 4)
+    #
+    #     min_price_title = wx.StaticText(self.panel, size=(12, 16), label='m', style=wx.ALIGN_CENTRE_HORIZONTAL)
+    #     min_price_title.SetForegroundColour((160, 160, 170))
+    #
+    #     self.min_price_text = wx.StaticText(self.panel, label=f'₽ N/A')
+    #     self.min_price_text.SetForegroundColour((240, 226, 42))
+    #
+    #     slot_price_title = wx.StaticText(self.panel, size=(12, 16), label='s', style=wx.ALIGN_CENTRE_HORIZONTAL)
+    #     slot_price_title.SetForegroundColour((160, 160, 170))
+    #
+    #     self.slot_price_text = wx.StaticText(self.panel, label=f'₽ N/A')
+    #     self.slot_price_text.SetForegroundColour((240, 226, 42))
+    #
+    #     trader_price_title = wx.StaticText(self.panel, size=(12, 16), label='t', style=wx.ALIGN_CENTRE_HORIZONTAL)
+    #     trader_price_title.SetForegroundColour((160, 160, 170))
+    #
+    #     self.trader_price_text = wx.StaticText(self.panel, label=f'₽ N/A')
+    #     self.trader_price_text.SetForegroundColour((240, 226, 42))
+    #
+    #     # help_title = wx.StaticText(self.panel, label="(F1)", style=wx.ALIGN_RIGHT)
+    #     # help_title.SetForegroundColour((160, 160, 170))
+    #
+    #     fb.AddMany([min_price_title, self.min_price_text,
+    #                 slot_price_title, self.slot_price_text,
+    #                 trader_price_title, self.trader_price_text,
+    #                 ])
+    #
+    #     fb.AddGrowableCol(1, 1)
+    #
+    #     hbox.Add(fb, proportion=1, flag=wx.EXPAND | wx.ALL, border=6)
+    #     self.panel.SetSizer(hbox)
+    #     self.Layout()
+    #     pass
