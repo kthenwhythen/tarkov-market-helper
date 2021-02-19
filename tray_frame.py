@@ -26,7 +26,7 @@ class TrayFrame(wx.Frame):
 
         self.title = wx.StaticText(self.panel, label='TMH')
         self.title.SetForegroundColour((160, 160, 170))
-        self.hotkeys = wx.StaticText(self.panel, label='F1')
+        self.hotkeys = wx.StaticText(self.panel, label=f'{self.hotkey_scan}')
         self.hotkeys.SetForegroundColour((160, 160, 170))
 
         self.scan_title = wx.StaticText(self.panel, size=(26, 16), label=f'{self.hotkey_scan}', style=wx.ALIGN_CENTRE_HORIZONTAL)

@@ -1,20 +1,21 @@
-import pyautogui
+import mouse
 import cv2
 import numpy as np
 import hashlib
+from PIL import ImageGrab
 
 
 class Scan:
     def __init__(self):
-        screen_image = pyautogui.screenshot()
+        screen_image = ImageGrab.grab()
         self.screen_image_cv = cv2.cvtColor(np.array(screen_image), cv2.COLOR_RGB2GRAY)
-        self.mouse_position_x, self.mouse_position_y = pyautogui.position()
+        self.mouse_position_x, self.mouse_position_y = mouse.get_position()
         self.item_hash = None
         self.start_shade = 1
         self.start_position_x, self.start_position_y = (0, 0)
         self.item_image = None
 
-        screen_width, screen_height = pyautogui.size()
+        screen_width, screen_height = (1920, 1080)
 
         if self.mouse_position_x < (screen_width * 0.98) and self.mouse_position_y > (screen_height * 0.02):
             self.find_start_shade()
@@ -22,11 +23,6 @@ class Scan:
         if not self.start_shade:
             self.find_item_image()
             self.hash_item_image()
-
-            # Temp
-            # cv2.imwrite("item_image.png", self.item_image)
-            # Temp
-            # cv2.imwrite("screen_image.png", self.screen_image_cv)
 
     def find_start_shade(self):
         self.start_position_x, self.start_position_y = self.mouse_position_x + 11, self.mouse_position_y - 11
