@@ -6,24 +6,26 @@ from keyboard import add_hotkey
 
 # Startup settings
 LANG = 'RU'  # EN, RU
-HOTKEY = 'F4'  # hotkey for turn scan
-FPS = 60  # Smooth of frame update
+HOTKEY_SCAN = 'F4'  # hotkey for turn scan
+HOTKEY_HELP = 'F2'  # hotkey for turn help
+HOTKEY_EXIT = 'F11'  # hotkey to close app
+FPS = 30  # Smooth of frame update
 TRAY_POSITION = 'right'  # left, center, right
 
 
 # Init app
 app = App()
 main_frame = MainFrame(LANG, FPS)
-tray_frame = TrayFrame(TRAY_POSITION, HOTKEY)
+tray_frame = TrayFrame(TRAY_POSITION, HOTKEY_SCAN)
 
 
 # Turn scan
-add_hotkey(HOTKEY, lambda: main_frame.turn_thread())
-add_hotkey(HOTKEY, lambda: tray_frame.turn_active())
+add_hotkey(HOTKEY_SCAN, lambda: main_frame.turn_thread())
+add_hotkey(HOTKEY_SCAN, lambda: tray_frame.turn_active())
 
 
 # Turn help
-add_hotkey('F1', lambda: tray_frame.turn_help())
+add_hotkey(HOTKEY_HELP, lambda: tray_frame.turn_help())
 
 
 # Debug hotkey for view hash
@@ -31,7 +33,8 @@ add_hotkey('F2', lambda: main_frame.note_item())
 
 
 # Close app
-add_hotkey('F11', lambda: main_frame.Close())
-add_hotkey('F11', lambda: tray_frame.Close())
+add_hotkey(HOTKEY_EXIT, lambda: main_frame.Close())
+add_hotkey(HOTKEY_EXIT, lambda: tray_frame.Close())
+
 
 app.MainLoop()
