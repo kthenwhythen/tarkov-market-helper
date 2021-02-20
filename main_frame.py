@@ -41,9 +41,6 @@ class MainFrame(wx.Frame):
         self.thread_is_on = True
         self.turn_thread()
 
-        # Show App
-        # self.Show(True)
-
     def turn_thread(self):  # Changing thread bool and then start thread
         self.thread_is_on = not self.thread_is_on
 
