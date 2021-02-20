@@ -2,7 +2,7 @@ import wx
 
 
 class TrayFrame(wx.Frame):
-    def __init__(self, position, hotkey):
+    def __init__(self, position, hotkey_scan, hotkey_help):
 
         # Set style and options of Frame
         style = (wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.BORDER_NONE)
@@ -16,7 +16,8 @@ class TrayFrame(wx.Frame):
         self.position = position
         self.set_position(self.position)
 
-        self.hotkey_scan = hotkey
+        self.hotkey_scan = hotkey_scan
+        self.hotkey_help = hotkey_help
 
         self.active = False
         self.help = False
@@ -26,7 +27,7 @@ class TrayFrame(wx.Frame):
 
         self.title = wx.StaticText(self.panel, label='TMH')
         self.title.SetForegroundColour((160, 160, 170))
-        self.hotkeys = wx.StaticText(self.panel, label=f'{self.hotkey_scan}')
+        self.hotkeys = wx.StaticText(self.panel, label=f'{self.hotkey_help}')
         self.hotkeys.SetForegroundColour((160, 160, 170))
 
         self.scan_title = wx.StaticText(self.panel, size=(26, 16), label=f'{self.hotkey_scan}', style=wx.ALIGN_CENTRE_HORIZONTAL)
@@ -93,5 +94,5 @@ class TrayFrame(wx.Frame):
             self.hotkeys.SetForegroundColour((160, 160, 170))
             self.hotkeys.SetLabel('')
             self.SetSize(wx.Size(50, 20))
-        self.hotkeys.SetLabel('F1')
+        self.hotkeys.SetLabel(f'{self.hotkey_help}')
         self.set_position(self.position)

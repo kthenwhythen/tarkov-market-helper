@@ -1,5 +1,6 @@
 import pandas
 import requests
+from io import BytesIO
 
 
 DATA = 'https://docs.google.com/spreadsheet/ccc?key=12iocznEgCgCTOjPxEkRHxLV18fzHV2WqtdJQZFwTjtY&output=csv'
@@ -23,7 +24,5 @@ class Items:
 
     def refresh(self):
         response = requests.get(DATA)
-        with open('data.csv', 'wb') as file:
-            file.write(response.content)
-        self.items = pandas.read_csv("data.csv")
-        print("Local data updated\n")
+        self.items = pandas.read_csv(BytesIO(response.content))
+        print("Data loaded\n")

@@ -16,7 +16,7 @@ TRAY_POSITION = 'right'  # left, center, right
 # Init app
 app = App()
 main_frame = MainFrame(LANG, FPS)
-tray_frame = TrayFrame(TRAY_POSITION, HOTKEY_SCAN)
+tray_frame = TrayFrame(TRAY_POSITION, HOTKEY_SCAN, HOTKEY_HELP)
 
 
 # Turn scan
@@ -29,7 +29,7 @@ add_hotkey(HOTKEY_HELP, lambda: tray_frame.turn_help())
 
 
 # Debug hotkey for view hash
-add_hotkey('F2', lambda: main_frame.note_item())
+add_hotkey('F3', lambda: main_frame.note_item())
 
 
 # Close app
