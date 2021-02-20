@@ -123,7 +123,12 @@ class MainFrame(wx.Frame):
             self.trader_price_text.SetLabel("₽ N/A")
 
     def scan_item(self):
-        self.item, self.item_state = self.items.find(Scan().item_hash)
+        try:
+            self.item, self.item_state = self.items.find(Scan().item_hash)
+        except AttributeError as error:
+            print(error)
+            self.item, self.item_state = self.items.find('')
+
         if not self.item.empty and self.item_state == "Item data found" and self.thread_is_on:
             self.Show(True)
         elif self.item.empty and self.item_state == "Item data not found" and self.thread_is_on:

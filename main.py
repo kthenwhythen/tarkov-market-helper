@@ -5,12 +5,12 @@ from keyboard import add_hotkey
 
 
 # Startup settings
-LANG = 'RU'  # EN, RU
+LANG = 'EN'  # EN, RU
 HOTKEY_SCAN = 'F4'  # hotkey for turn scan
 HOTKEY_HELP = 'F2'  # hotkey for turn help
 HOTKEY_EXIT = 'F11'  # hotkey to close app
 FPS = 30  # Smooth of frame update
-TRAY_POSITION = 'right'  # left, center, right
+TRAY_POSITION = 'center'  # left, center, right
 
 
 # Init app
