@@ -8,7 +8,7 @@ from PIL import ImageGrab
 class Scan:
     def __init__(self):
         """
-        sample
+        Scan that taking screenshot every time when MainFrame is updating and then set item_hash
         """
         try:
             screen_image = ImageGrab.grab()
@@ -27,53 +27,61 @@ class Scan:
             if not self.start_shade:
                 self.find_item_image()
                 self.hash_item_image()
+
         except OSError as error:
             print(error)
 
     def find_start_shade(self):
         """
-        sample
+        Find shade that will be remembered like start position
         """
         self.start_position_x, self.start_position_y = self.mouse_position_x + 11, self.mouse_position_y - 11
         self.start_shade = self.screen_image[self.start_position_y, self.start_position_x]
 
     def find_right_corner(self):
         """
-        sample
+        Will search right border that equal to 87
         """
         for pix in range(1, 400):
             try:
                 shade = self.screen_image[self.start_position_y, self.start_position_x + pix]
                 if shade == 0:
                     pass
+
                 elif shade == 87:
                     return self.start_position_x + pix
+
                 else:
                     break
+
             except IndexError as error:
                 print(error)
                 print(self.start_position_y, self.start_position_x, pix)
 
     def find_top_corner(self, left_corner_position_x):
         """
-        sample
+        Will search top border that equal to 87
         """
         for pix in range(1, 100):
             shade = self.screen_image[self.start_position_y - pix, left_corner_position_x]
+
             if shade == 0:
                 pass
+
             elif shade == 87:
                 return self.start_position_y - pix + 1
+
             else:
                 break
 
     def find_item_image(self):
         """
-        sample
+        Method search right_corner and top_corner that needed for finding item_image
         """
         right_corner_position_x = self.find_right_corner()
         if right_corner_position_x:
             top_corner_position_y = self.find_top_corner(self.start_position_x)
+
             if top_corner_position_y:
                 width = right_corner_position_x - self.start_position_x
                 height = self.start_position_y - top_corner_position_y
@@ -83,7 +91,7 @@ class Scan:
 
     def hash_item_image(self):
         """
-        sample
+        Set item_hash for item_image
         """
         if self.item_image is not None:
             item_bytes = md5(self.item_image.tobytes())

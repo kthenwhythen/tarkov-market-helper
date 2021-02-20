@@ -4,26 +4,47 @@ import wx
 class TrayFrame(wx.Frame):
     def __init__(self, position, hotkey_scan, hotkey_help):
         """
-        sample
+        TrayFrame is helping user to see the state of the application and view hotkeys
         """
         # Set style and options of Frame
         style = (wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.BORDER_NONE)
         super().__init__(None, title='Tarkov Market Helper Tray', size=(50, 20), style=style)
-
-        # Style settings
         self.panel = wx.Panel(self)
         self.SetTransparent(220)
         self.SetBackgroundColour('black')
 
+        # Set position on top of display
         self.position = position
         self.set_position(self.position)
 
+        # Taking hotkeys
         self.hotkey_scan = hotkey_scan
         self.hotkey_help = hotkey_help
 
+        # Mods of app
         self.active = False
         self.help = False
 
+        # Init UI
+        self.title = None
+        self.hotkeys = None
+        self.scan_title = None
+        self.scan_text = None
+        self.m_title = None
+        self.m_text = None
+        self.s_title = None
+        self.s_text = None
+        self.t_title = None
+        self.t_text = None
+        self.init_ui()
+
+        # Show App
+        self.Show(True)
+
+    def init_ui(self):
+        """
+        Init UI when app start
+        """
         hbox = wx.BoxSizer()
         fb = wx.FlexGridSizer(6, 2, 4, 6)
 
@@ -32,7 +53,8 @@ class TrayFrame(wx.Frame):
         self.hotkeys = wx.StaticText(self.panel, label=f'{self.hotkey_help}')
         self.hotkeys.SetForegroundColour((160, 160, 170))
 
-        self.scan_title = wx.StaticText(self.panel, size=(26, 16), label=f'{self.hotkey_scan}', style=wx.ALIGN_CENTRE_HORIZONTAL)
+        self.scan_title = wx.StaticText(self.panel, size=(26, 16), label=f'{self.hotkey_scan}',
+                                        style=wx.ALIGN_CENTRE_HORIZONTAL)
         self.scan_title.SetForegroundColour((160, 160, 170))
         self.scan_text = wx.StaticText(self.panel, label='Activate scan')
         self.scan_text.SetForegroundColour((160, 160, 170))
@@ -64,46 +86,51 @@ class TrayFrame(wx.Frame):
         self.panel.SetSizer(hbox)
         self.Layout()
 
-        # Show App
-        self.Show(True)
-
     def set_position(self, position):
         """
-        sample
+        Method for set tray_frame position on top
         """
         if position == 'left':
             self.Move(wx.Point(0, 0))
+
         elif position == 'center':
             self.Move(wx.Point(int((1920 - self.Size.GetWidth()) / 2), 0))
+
         elif position == 'right':
             self.Move(wx.Point(1920 - self.Size.GetWidth(), 0))
 
     def turn_active(self):
         """
-        sample
+        On/Off for active scan mode
         """
         self.active = not self.active
+
         if self.active:
             self.title.SetForegroundColour((240, 226, 42))
             self.title.SetLabel('')
+
         else:
             self.title.SetForegroundColour((160, 160, 170))
             self.title.SetLabel('')
+
         self.title.SetLabel('TMH')
         self.Layout()
 
     def turn_help(self):
         """
-        sample
+        On/Off for help mode
         """
         self.help = not self.help
+
         if self.help:
             self.hotkeys.SetForegroundColour((240, 226, 42))
             self.hotkeys.SetLabel('')
             self.SetSize(wx.Size(120, 112))
+
         else:
             self.hotkeys.SetForegroundColour((160, 160, 170))
             self.hotkeys.SetLabel('')
             self.SetSize(wx.Size(50, 20))
+
         self.hotkeys.SetLabel(f'{self.hotkey_help}')
         self.set_position(self.position)
