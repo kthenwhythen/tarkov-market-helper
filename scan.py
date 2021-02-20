@@ -1,16 +1,19 @@
-import mouse
-import cv2
-import numpy as np
-import hashlib
+from mouse import get_position
+from cv2 import cvtColor, threshold, COLOR_RGB2GRAY
+from numpy import array
+from hashlib import md5
 from PIL import ImageGrab
 
 
 class Scan:
     def __init__(self):
+        """
+        sample
+        """
         try:
             screen_image = ImageGrab.grab()
-            self.screen_image = cv2.cvtColor(np.array(screen_image), cv2.COLOR_RGB2GRAY)
-            self.mouse_position_x, self.mouse_position_y = mouse.get_position()
+            self.screen_image = cvtColor(array(screen_image), COLOR_RGB2GRAY)
+            self.mouse_position_x, self.mouse_position_y = get_position()
             self.item_hash = None
             self.start_shade = 1
             self.start_position_x, self.start_position_y = (0, 0)
@@ -28,10 +31,16 @@ class Scan:
             print(error)
 
     def find_start_shade(self):
+        """
+        sample
+        """
         self.start_position_x, self.start_position_y = self.mouse_position_x + 11, self.mouse_position_y - 11
         self.start_shade = self.screen_image[self.start_position_y, self.start_position_x]
 
     def find_right_corner(self):
+        """
+        sample
+        """
         for pix in range(1, 400):
             try:
                 shade = self.screen_image[self.start_position_y, self.start_position_x + pix]
@@ -46,6 +55,9 @@ class Scan:
                 print(self.start_position_y, self.start_position_x, pix)
 
     def find_top_corner(self, left_corner_position_x):
+        """
+        sample
+        """
         for pix in range(1, 100):
             shade = self.screen_image[self.start_position_y - pix, left_corner_position_x]
             if shade == 0:
@@ -56,6 +68,9 @@ class Scan:
                 break
 
     def find_item_image(self):
+        """
+        sample
+        """
         right_corner_position_x = self.find_right_corner()
         if right_corner_position_x:
             top_corner_position_y = self.find_top_corner(self.start_position_x)
@@ -64,9 +79,12 @@ class Scan:
                 height = self.start_position_y - top_corner_position_y
                 crop_screen_image = self.screen_image[top_corner_position_y:top_corner_position_y + height,
                                     self.start_position_x:self.start_position_x + width]
-                ret, self.item_image = cv2.threshold(crop_screen_image, 0, 255, 0)
+                ret, self.item_image = threshold(crop_screen_image, 0, 255, 0)
 
     def hash_item_image(self):
+        """
+        sample
+        """
         if self.item_image is not None:
-            item_bytes = hashlib.md5(self.item_image.tobytes())
+            item_bytes = md5(self.item_image.tobytes())
             self.item_hash = item_bytes.hexdigest()

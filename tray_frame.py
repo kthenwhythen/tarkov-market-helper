@@ -3,7 +3,9 @@ import wx
 
 class TrayFrame(wx.Frame):
     def __init__(self, position, hotkey_scan, hotkey_help):
-
+        """
+        sample
+        """
         # Set style and options of Frame
         style = (wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR | wx.BORDER_NONE)
         super().__init__(None, title='Tarkov Market Helper Tray', size=(50, 20), style=style)
@@ -66,6 +68,9 @@ class TrayFrame(wx.Frame):
         self.Show(True)
 
     def set_position(self, position):
+        """
+        sample
+        """
         if position == 'left':
             self.Move(wx.Point(0, 0))
         elif position == 'center':
@@ -74,6 +79,9 @@ class TrayFrame(wx.Frame):
             self.Move(wx.Point(1920 - self.Size.GetWidth(), 0))
 
     def turn_active(self):
+        """
+        sample
+        """
         self.active = not self.active
         if self.active:
             self.title.SetForegroundColour((240, 226, 42))
@@ -85,6 +93,9 @@ class TrayFrame(wx.Frame):
         self.Layout()
 
     def turn_help(self):
+        """
+        sample
+        """
         self.help = not self.help
         if self.help:
             self.hotkeys.SetForegroundColour((240, 226, 42))
