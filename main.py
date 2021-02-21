@@ -1,3 +1,4 @@
+import configparser
 from wx import App
 from keyboard import add_hotkey
 from tray_frame import TrayFrame
@@ -5,18 +6,22 @@ from main_frame import MainFrame
 
 
 # Startup settings
-LANG = 'EN'  # EN, RU
-HOTKEY_SCAN = 'F4'  # hotkey for turn scan
-HOTKEY_HELP = 'F2'  # hotkey for turn help
-HOTKEY_EXIT = 'F11'  # hotkey to close app
-FPS = 30  # Smooth of frame update
-TRAY_POSITION = 'center'  # left, center, right
+config = configparser.ConfigParser()
+config.read('settings.ini')
+
+LANG = config['App settings']['lang']
+FPS = int(config['App settings']['fps'])
+TRAY_POSITION = config['App settings']['tray_position']
+
+HOTKEY_HELP = config['Hotkey settings']['hotkey_help']
+HOTKEY_SCAN = config['Hotkey settings']['hotkey_scan']
+HOTKEY_EXIT = config['Hotkey settings']['hotkey_exit']
 
 
 # Init app
 app = App()
 main_frame = MainFrame(LANG, FPS)
-tray_frame = TrayFrame(TRAY_POSITION, HOTKEY_SCAN, HOTKEY_HELP)
+tray_frame = TrayFrame(TRAY_POSITION, HOTKEY_HELP, HOTKEY_SCAN, HOTKEY_EXIT)
 
 
 # Turn scan
