@@ -1,5 +1,6 @@
 from wx import App
 from keyboard import add_hotkey
+from sys import path; path.append('App')
 from tray_frame import TrayFrame
 from main_frame import MainFrame
 
