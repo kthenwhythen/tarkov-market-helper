@@ -2,7 +2,7 @@ import wx
 
 
 class TrayFrame(wx.Frame):
-    def __init__(self, position, hotkey_scan, hotkey_help):
+    def __init__(self, position, hotkey_help, hotkey_scan, hotkey_exit):
         """
         TrayFrame is helping user to see the state of the application and view hotkeys
         """
@@ -18,8 +18,9 @@ class TrayFrame(wx.Frame):
         self.set_position(self.position)
 
         # Taking hotkeys
-        self.hotkey_scan = hotkey_scan
         self.hotkey_help = hotkey_help
+        self.hotkey_scan = hotkey_scan
+        self.hotkey_exit = hotkey_exit
 
         # Mods of app
         self.active = False
@@ -30,6 +31,8 @@ class TrayFrame(wx.Frame):
         self.hotkeys = None
         self.scan_title = None
         self.scan_text = None
+        self.exit_title = None
+        self.exit_text = None
         self.m_title = None
         self.m_text = None
         self.s_title = None
@@ -46,7 +49,7 @@ class TrayFrame(wx.Frame):
         Init UI when app start
         """
         hbox = wx.BoxSizer()
-        fb = wx.FlexGridSizer(6, 2, 4, 6)
+        fb = wx.FlexGridSizer(7, 2, 4, 6)
 
         self.title = wx.StaticText(self.panel, label='TMH')
         self.title.SetForegroundColour((160, 160, 170))
@@ -58,6 +61,12 @@ class TrayFrame(wx.Frame):
         self.scan_title.SetForegroundColour((160, 160, 170))
         self.scan_text = wx.StaticText(self.panel, label='Activate scan')
         self.scan_text.SetForegroundColour((160, 160, 170))
+
+        self.exit_title = wx.StaticText(self.panel, size=(26, 16), label=f'{self.hotkey_exit}',
+                                        style=wx.ALIGN_CENTRE_HORIZONTAL)
+        self.exit_title.SetForegroundColour((160, 160, 170))
+        self.exit_text = wx.StaticText(self.panel, label='Close app')
+        self.exit_text.SetForegroundColour((160, 160, 170))
 
         self.m_title = wx.StaticText(self.panel, size=(26, 16), label='m', style=wx.ALIGN_CENTRE_HORIZONTAL)
         self.m_title.SetForegroundColour((160, 160, 170))
@@ -76,6 +85,7 @@ class TrayFrame(wx.Frame):
 
         fb.AddMany([self.title, self.hotkeys,
                     self.scan_title, self.scan_text,
+                    self.exit_title, self.exit_text,
                     (6, 6), (6, 6),
                     self.m_title, self.m_text,
                     self.s_title, self.s_text,
@@ -125,7 +135,7 @@ class TrayFrame(wx.Frame):
         if self.help:
             self.hotkeys.SetForegroundColour((240, 226, 42))
             self.hotkeys.SetLabel('')
-            self.SetSize(wx.Size(120, 112))
+            self.SetSize(wx.Size(120, 132))
 
         else:
             self.hotkeys.SetForegroundColour((160, 160, 170))
