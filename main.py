@@ -1,3 +1,8 @@
+# TMH is an in-game assistant for tracking market prices
+# https://github.com/null-architect/tarkov_market_helper
+# Null-architect
+
+
 import configparser
 from wx import App
 from keyboard import add_hotkey
