@@ -1,7 +1,7 @@
 from wx import App
+from keyboard import add_hotkey
 from tray_frame import TrayFrame
 from main_frame import MainFrame
-from keyboard import add_hotkey
 
 
 # Startup settings
