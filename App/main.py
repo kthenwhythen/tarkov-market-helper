@@ -8,7 +8,7 @@ from main_frame import MainFrame
 
 # Startup settings
 config = configparser.ConfigParser()
-config.read('settings.ini')
+config.read('../settings.ini')
 
 LANG = config['App settings']['lang']
 FPS = int(config['App settings']['fps'])
