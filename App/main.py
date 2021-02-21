@@ -1,7 +1,13 @@
+# TMH is an in-game assistant for tracking market prices
+# https://github.com/null-architect/tarkov_market_helper
+# Null-architect
+
+
 import configparser
 from wx import App
 from keyboard import add_hotkey
-from sys import path; path.append('App')
+from sys import path
+path.append('App')
 from tray_frame import TrayFrame
 from main_frame import MainFrame
 
