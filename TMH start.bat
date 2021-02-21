@@ -1,1 +1,1 @@
-"Python\python.exe" "App\main.py"
+start Python\pythonw.exe App\main.py
