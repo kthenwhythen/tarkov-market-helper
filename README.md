@@ -17,11 +17,11 @@ Features
 - [ ] A mark that such an item is already in the stash
 - [ ] Item counter
 
-Demo
+Screenshots
 =========
-![demo1](Demo/image_1.jpg)
-![demo2](Demo/image_2.jpg)
-![demo3](Demo/image_3.jpg)
+![Screenshots1](Screenshots/image1.jpg)
+![Screenshots2](Screenshots/image2.jpg)
+![Screenshots3](Screenshots/image3.jpg)
 
 Install
 =========
