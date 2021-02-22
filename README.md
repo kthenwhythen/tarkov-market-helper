@@ -3,7 +3,7 @@ Tarkov Market Helper
 [![License](https://img.shields.io/badge/license-MIT-brightgreen)](https://github.com/null-architect/tarkov_market_helper/blob/master/LICENSE.txt)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-yellow)](https://www.paypal.com/paypalme/nullarchitect)
 
-TMH is an in-game assistant for tracking market prices
+TMH is an in-game helper for tracking market prices
 
 Features
 =========
@@ -19,9 +19,9 @@ Features
 
 Demo
 =========
-![demo1](https://raw.githubusercontent.com/null-architect/tarkov-market-helper/master/Demo/image_1.jpg)
-![demo2](https://raw.githubusercontent.com/null-architect/tarkov-market-helper/master/Demo/image_2.jpg)
-![demo3](https://raw.githubusercontent.com/null-architect/tarkov-market-helper/master/Demo/image_3.jpg)
+![demo1](Demo/image_1.jpg)
+![demo2](Demo/image_2.jpg)
+![demo3](Demo/image_3.jpg)
 
 Install
 =========
@@ -40,3 +40,12 @@ How Does TMH Work?
 
 Dependencies
 =========
+Developed on Python 3.7
+- wxPython
+- keyboard
+- mouse
+- pandas
+- opencv-python
+- numpy
+- pillow
+- requests
