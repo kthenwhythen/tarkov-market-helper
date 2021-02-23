@@ -27,7 +27,7 @@ Screenshots
 
 Install
 =========
-You can download the program archive [here](https://github.com/null-architect/tarkov-market-helper/releases/latest/download/tarkov.market.helper.v1.0.2.zip). After unpacking, run `TMH start.bat` inside unpacked folder.
+You can download the program archive [here](https://github.com/null-architect/tarkov-market-helper/releases/latest/download/tarkov.market.helper.v1.0.2.zip). After unpacking, run `TMH start.bat` inside unpacked folder. Inside the archive with the program there is an embedded python with preinstalled libraries, which is heavy.
 
 Usage
 =========
