@@ -1,6 +1,6 @@
 Tarkov Market Helper
 =========
-[![Github All Releases](https://img.shields.io/github/downloads/null-architect/tarkov-market-helper/total.svg)](https://github.com/null-architect/tarkov-market-helper/releases/latest/download/tarkov.market.helper.v1.0.2.zip)
+[![Github All Releases](https://img.shields.io/github/downloads/null-architect/tarkov-market-helper/total.svg)](https://github.com/null-architect/tarkov-market-helper/releases/latest)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen)](https://github.com/null-architect/tarkov-market-helper/blob/master/LICENSE.txt)
 [![Donate](https://img.shields.io/badge/donate-PayPal-yellow)](https://www.paypal.com/paypalme/nullarchitect)
 
@@ -27,7 +27,7 @@ Screenshots
 
 Install
 =========
-You can download the program archive [here](https://github.com/null-architect/tarkov-market-helper/releases/latest/download/tarkov.market.helper.v1.0.2.zip). After unpacking, run `TMH start.bat` inside unpacked folder. The archive with the program also has embedded python with preinstalled libraries, which is heavy.
+You can download the program archive [here](https://github.com/null-architect/tarkov-market-helper/releases/latest). After unpacking, run `TMH start.bat` inside unpacked folder. The archive with the program also has embedded python with preinstalled libraries, which is heavy.
 
 Usage
 =========
@@ -36,6 +36,10 @@ After starting the program, an interface will appear at the top in which you can
 You can use the program in two ways:
 1) Always keep scan mode active (May affect performance)
 2) Turn on scan mode if necessary
+
+Data
+=========
+Item price data is updated once a day and is stored in the cloud. Each time the program is launched, updated pricing data is downloaded.
 
 Known limitations
 =========
