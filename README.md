@@ -6,7 +6,7 @@ Tarkov Market Helper [DEPRECATED]
 
 TMH is an in-game helper for tracking market prices. The program does not invade the game files in any way and only uses screen images. 
 
-The project is currently not working and is frozen.
+The project is currently not working and is frozen. You can look at forks to find a working version.
 
 `I highly recommend reading the "Known limitations" section`
 
