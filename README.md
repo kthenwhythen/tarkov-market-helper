@@ -1,10 +1,12 @@
-Tarkov Market Helper
+Tarkov Market Helper [DEPRECATED]
 =========
 [![Github All Releases](https://img.shields.io/github/downloads/null-architect/tarkov-market-helper/total.svg)](https://github.com/null-architect/tarkov-market-helper/releases/latest)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen)](https://github.com/null-architect/tarkov-market-helper/blob/master/LICENSE.txt)
 [![Donate](https://img.shields.io/badge/donate-PayPal-yellow)](https://www.paypal.com/paypalme/nullarchitect)
 
-TMH is an in-game helper for tracking market prices. The program does not invade the game files in any way and only uses screen images.
+TMH is an in-game helper for tracking market prices. The program does not invade the game files in any way and only uses screen images. 
+
+The project is currently not working and is frozen.
 
 `I highly recommend reading the "Known limitations" section`
 
